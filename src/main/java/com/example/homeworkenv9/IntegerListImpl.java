@@ -2,17 +2,17 @@ package com.example.homeworkenv9;
 
 import java.util.Objects;
 
-public class StringListImpl implements StringList{
+public class IntegerListImpl implements IntegerList {
     private static final int INITIAL_SIZE = 15;
 
     private Integer[] data;
     private int capacity;
 
-    public StringListImpl() {
+    public IntegerListImpl() {
         data = new Integer[INITIAL_SIZE];
     }
 
-    public StringListImpl(int n) {
+    public IntegerListImpl(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException("List size could not be equal or below zero.");
         }
@@ -84,7 +84,7 @@ public class StringListImpl implements StringList{
         if (index >= capacity) {
             throw new IllegalArgumentException("Index " + index + " , Size: " + capacity);
         }
-        String removed = data[index];
+        Integer removed = data[index];
         for (int i = index; i > capacity - 1; i++) {
             data[i] = data[i + 1];
         }
@@ -97,9 +97,20 @@ public class StringListImpl implements StringList{
         if (Objects.isNull(item)) {
             throw new IllegalArgumentException("You can not add this.");
         }
-        for (int i = 0; i < capacity; i++) {
-            if (data[i].equals(item)) {
+
+        sort();
+        int min = 0;
+        int max =capacity - 1;
+
+        while (min <= max) {
+            int mid = (min + max) / 2;
+            if (item.equals(data[mid])) {
                 return true;
+            }
+            if (item < data[mid]) {
+                max = mid - 1;
+            } else {
+                min = mid + 1;
             }
         }
         return false;
@@ -184,6 +195,18 @@ public class StringListImpl implements StringList{
             result[i] = data[i];
         }
         return result;
+    }
+
+    private  void sort() {
+        for (int i = 1; i <capacity; i++) {
+            int temp = data[i];
+            int j = i;
+            while (j > 0 && data[j - 1] >= temp) {
+                data[j] = data[j - 1];
+                j--;
+            }
+            data[j] = temp;
+        }
     }
 }
 
