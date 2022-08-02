@@ -1,6 +1,6 @@
 package com.example.homeworkenv9;
 
-public interface StringList {
+public interface IntegerList {
     Integer add(Integer item);
     Integer add(int index, Integer item);
     Integer set(int index, Integer item);
@@ -15,4 +15,5 @@ public interface StringList {
     boolean isEmpty();
     void clear();
     Integer[] toArray();
+
 }
